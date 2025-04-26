@@ -44,5 +44,5 @@ bot.onText(/^\/start$/, (msg) => {
     }
   };
  
-  bot.sendMessage(chatId, welcomeMessage);
+  bot.sendMessage(chatId, welcomeMessage, options);
 });
