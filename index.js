@@ -1,13 +1,22 @@
 const TelegramBot = require('node-telegram-bot-api');
 
-// Ganti dengan token bot kamu
+// Ganti dengan token bot Anda
 const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
 
 // Buat bot dengan polling
 const bot = new TelegramBot(token, { polling: true });
 
-// Event saat anggota baru masuk grup
-bot.on('/start', (msg) => {
+// Handler untuk perintah /start
+bot.onText(/^\/start$/, (msg) => {
+  const chatId = msg.chat.id;
+  const name = msg.from.first_name || 'Teman';
+
+  const welcomeMessage = `👋 Halo, ${name}!\nSelamat datang di bot kami. Gunakan perintah /menu untuk melihat opsi yang tersedia.`;
+  bot.sendMessage(chatId, welcomeMessage);
+});
+
+// Handler untuk anggota baru yang bergabung dalam grup
+bot.on('new_chat_members', (msg) => {
   const chatId = msg.chat.id;
   const newMembers = msg.new_chat_members;
 
@@ -17,33 +26,3 @@ bot.on('/start', (msg) => {
     bot.sendMessage(chatId, welcomeMessage);
   });
 });
-
-bot.on('callback_query', (callbackQuery) => {
-    const msg = callbackQuery.message;
-    const data = callbackQuery.data;
-  
-    let response = '/start/';
-  
-    switch (data) {
-      case 'login':
-        response = '🔐 Silakan login di: https://link-login-kamu.com';
-        break;
-      case 'link_alternatif':
-        response = '🌐 Link alternatif: https://link-alternatif-kamu.com';
-        break;
-      case 'hubungi_cs':
-        response = '📞 Hubungi CS kami di: @CS_Nada777';
-        break;
-      case 'daftar_akun':
-        response = '📋 Daftar akun baru di: https://link-daftar-kamu.com';
-        break;
-      case 'panduan':
-        response = '📄 Panduan lengkap: https://link-panduan-kamu.com';
-        break;
-      default:
-        response = '❓ Pilihan tidak dikenal.';
-    }
-  
-    bot.sendMessage(msg.chat.id, response);
-    bot.answerCallbackQuery(callbackQuery.id);
-  });
