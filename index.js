@@ -7,8 +7,7 @@ const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
 const bot = new TelegramBot(token, { polling: true });
 
 // Daftar semua game (Pragmatic + PG Soft)
-const allGames = [
-  // Pragmatic Play
+const pragmaticGames = [
   '🎰 Gates of Olympus',
   '👸 Starlight Princess',
   '🍭 Sweet Bonanza',
@@ -22,9 +21,10 @@ const allGames = [
   '💎 Aztec Gems',
   '🎉 Hot Fiesta',
   '🃏 Joker’s Jewels',
-  '🎰 Madame Destiny Megaways',
+  '🎰 Madame Destiny Megaways'
+];
 
-  // PG Soft
+const pgSoftGames = [
   '🀄 Mahjong Ways',
   '🀄 Mahjong Ways 2',
   '🐱 Lucky Neko',
@@ -34,32 +34,39 @@ const allGames = [
   '🏯 Treasures of Aztec',
   '🐟 Fish Prawn Crab',
   '👑 Queen of Bounty',
-  '💎 Gem Saviour',
+  '💎 Gem Saviour'
 ];
 
 // Variabel RTP aktif
-let rtpData = [];
+let rtpData = {
+  pragmatic: [],
+  pgSoft: []
+};
 let lastUpdateTime = '';
 
 // Fungsi buat RTP random
 function generateRandomRTP() {
-  const shuffled = allGames.sort(() => 0.5 - Math.random());
-  const selectedGames = shuffled.slice(0, 8); // Pilih 8 game random
-  return selectedGames.map(game => ({
-    name: game,
-    rtp: Math.floor(Math.random() * 11) + 90 // 90-100%
-  }));
+  const randomizeGames = (games) => {
+    const shuffled = games.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 5).map(game => ({
+      name: game,
+      rtp: Math.floor(Math.random() * 11) + 90 // 90-100%
+    }));
+  };
+
+  rtpData.pragmatic = randomizeGames(pragmaticGames);
+  rtpData.pgSoft = randomizeGames(pgSoftGames);
 }
 
 // Update RTP setiap 2 jam
 function updateRTP() {
-  rtpData = generateRandomRTP();
+  generateRandomRTP();
   const now = new Date();
   lastUpdateTime = now.toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
   console.log('🔄 Data RTP diupdate:', lastUpdateTime);
 }
 updateRTP();
-setInterval(updateRTP, 2 * 60 * 60 * 1000);
+setInterval(updateRTP, 2 * 60 * 60 * 1000); // Update setiap 2 jam
 
 // Handler /start
 bot.onText(/^\/start$/, (msg) => {
@@ -106,7 +113,13 @@ bot.on('callback_query', async (callbackQuery) => {
     setTimeout(() => {
       let rtpMessage = `🎰 *RTP ONLINE UPDATE!*\n\n`;
 
-      rtpData.forEach((game) => {
+      rtpMessage += `*Pragmatic Play RTP Saat Ini:*\n`;
+      rtpData.pragmatic.forEach((game) => {
+        rtpMessage += `• ${game.name} → *${game.rtp}%*\n`;
+      });
+
+      rtpMessage += `\n*PG Soft RTP Saat Ini:*\n`;
+      rtpData.pgSoft.forEach((game) => {
         rtpMessage += `• ${game.name} → *${game.rtp}%*\n`;
       });
 
