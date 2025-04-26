@@ -18,7 +18,7 @@ Selamat Datang Di *NADA777*, ${name}!
 ⬇️ Silahkan Pilih Menu Yang Kamu Butuhkan ⬇️`;
 
   const options = {
-    parse_mode: 'Markdown', // Biar teks bisa bold/rapi
+    parse_mode: 'Markdown',
     reply_markup: {
       inline_keyboard: [
         [
@@ -34,11 +34,27 @@ Selamat Datang Di *NADA777*, ${name}!
         ],
         [
           { text: '🎯 RTP ONLINE', url: 'https://t.ly/Nada777RTP' },
-          { text: '👥 GRUP RESMI NADA777', url: 'https://t.me/slotgacornada777' }
+          { text: '👥 GRUP RESMI NADA777', url: 'https://t.me/GrupResmiNada777' }
         ]
       ]
     }
   };
 
   bot.sendMessage(chatId, welcomeMessage, options);
+});
+
+// Handler semua pesan masuk
+bot.on('message', (msg) => {
+  const chatId = msg.chat.id;
+  const text = msg.text;
+
+  // Cek kalau bukan perintah /start
+  if (!text.startsWith('/start')) {
+    const reminderMessage = `
+Maaf, perintah tidak dikenali. 🙏
+
+Silakan ketik */start* lalu pilih tombol *Hubungi CS* untuk bantuan lebih lanjut.`;
+
+    bot.sendMessage(chatId, reminderMessage, { parse_mode: 'Markdown' });
+  }
 });
