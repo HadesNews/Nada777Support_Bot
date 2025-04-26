@@ -34,7 +34,7 @@ Selamat Datang Di *NADA777*, ${name}!
         ],
         [
           { text: '🎯 RTP ONLINE', url: 'https://t.ly/Nada777RTP' },
-          { text: '👥 GRUP RESMI NADA777', url: 'https://t.me/GrupResmiNada777' }
+          { text: '👥 GRUP RESMI NADA777', url: 'https://t.me/slotgacornada777' }
         ]
       ]
     }
