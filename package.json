@@ -1,0 +1,19 @@
+{
+    "name": "telegram-bot",
+    "version": "1.0.0",
+    "description": "Bot Telegram sederhana dengan javascrip",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js"
+    },
+    "keywords": [
+      "telegram",
+      "bot",
+      "nodejs"
+    ],
+    "author": "Nada777Support_Bot",
+    "license": "MIT",
+    "dependencies": {
+      "node-telegram-bot-api": "^0.61.0"
+    }
+  }
