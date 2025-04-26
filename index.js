@@ -14,6 +14,6 @@ bot.on('/start', (msg) => {
   newMembers.forEach((user) => {
     
     const welcomeMessage = `👋 Selamat datang, ${name}!\nSemoga betah di grup ini 😊`;
-    bot.sendMessage(chatId, welcomeMessage);
+    bot.sendMessage(start, welcomeMessage);
   });
 });
