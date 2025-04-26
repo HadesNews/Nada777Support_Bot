@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // Token bot
-const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
+const token = 'ISI_TOKEN_BOT_KAMU_DISINI';
 
 // Inisialisasi Bot
 const bot = new TelegramBot(token, { polling: true });
@@ -37,24 +37,56 @@ const pgSoftGames = [
   '💎 Gem Saviour'
 ];
 
+// Fungsi buat pola random + keterangan spin berdasarkan provider
+function generateRandomPola(provider) {
+  const polaList = [
+    '🕹️ 100x - 20x - 10x',
+    '🎯 50x - 30x - 20x',
+    '🎰 60x - 30x - 20x',
+    '🎲 40x - 25x - 15x',
+    '🎮 80x - 40x - 10x',
+    '🏆 90x - 50x - 30x'
+  ];
+  const randomPola = polaList[Math.floor(Math.random() * polaList.length)];
+
+  let spinInfo = '';
+
+  if (provider === 'pragmatic') {
+    spinInfo = `
+🔧 Setting:
+✅ Spin Turbo
+❌ Spin Cepat
+✅ Lewati Layar`;
+  } else if (provider === 'pgsoft') {
+    spinInfo = `
+🔧 Setting:
+🎯 Spin Auto
+🎮 Spin Normal (Manual)
+⚡ Spin Turbo`;
+  }
+
+  return `${randomPola}\n${spinInfo}`;
+}
+
 // Variabel RTP aktif
 let rtpData = {
   pragmatic: [],
   pgSoft: []
 };
 
-// Fungsi buat RTP random
+// Fungsi buat RTP random + pola + spin
 function generateRandomRTP() {
-  const randomizeGames = (games) => {
+  const randomizeGames = (games, provider) => {
     const shuffled = games.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 5).map(game => ({
       name: game,
-      rtp: Math.floor(Math.random() * 11) + 90 // 90-100%
+      rtp: Math.floor(Math.random() * 11) + 90, // 90-100%
+      pola: generateRandomPola(provider)
     }));
   };
 
-  rtpData.pragmatic = randomizeGames(pragmaticGames);
-  rtpData.pgSoft = randomizeGames(pgSoftGames);
+  rtpData.pragmatic = randomizeGames(pragmaticGames, 'pragmatic');
+  rtpData.pgSoft = randomizeGames(pgSoftGames, 'pgsoft');
 }
 
 // Update RTP setiap 2 jam
@@ -108,7 +140,6 @@ bot.on('callback_query', async (callbackQuery) => {
   if (data === 'rtp_online') {
     await bot.sendChatAction(chatId, 'typing');
 
-    // Ambil jam SEKARANG pas user klik
     const currentTime = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
 
     setTimeout(() => {
@@ -116,15 +147,15 @@ bot.on('callback_query', async (callbackQuery) => {
 
       rtpMessage += `📌 *Pragmatic Play RTP Saat Ini:*\n`;
       rtpData.pragmatic.forEach((game) => {
-        rtpMessage += `• ${game.name} → *${game.rtp}%*\n`;
+        rtpMessage += `• ${game.name} → *${game.rtp}%*\n  Pola: ${game.pola}\n\n`;
       });
 
       rtpMessage += `\n📌 *PG Soft RTP Saat Ini:*\n`;
       rtpData.pgSoft.forEach((game) => {
-        rtpMessage += `• ${game.name} → *${game.rtp}%*\n`;
+        rtpMessage += `• ${game.name} → *${game.rtp}%*\n  Pola: ${game.pola}\n\n`;
       });
 
-      rtpMessage += `\n⏰ Terakhir dilihat: *${currentTime}*\n🔄 Data update otomatis setiap 2 jam`;
+      rtpMessage += `⏰ Terakhir dilihat: *${currentTime}*\n🔄 Data update otomatis setiap 2 jam`;
 
       bot.sendMessage(chatId, rtpMessage, { parse_mode: 'Markdown' });
     }, 1000);
