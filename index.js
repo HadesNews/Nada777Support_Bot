@@ -23,7 +23,7 @@ let pgSoftGames = [
   { name: "Ways of The Qilin", rtp: randomRTP() }
 ];
 
-// Fungsi random RTP 90% - 99%
+// Fungsi random RTP 88% - 95%
 function randomRTP() {
   return Math.floor(Math.random() * 10) + 90;
 }
