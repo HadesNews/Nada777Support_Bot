@@ -6,7 +6,7 @@ const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
 // Inisialisasi Bot
 const bot = new TelegramBot(token, { polling: true });
 
-// Daftar semua game (tanpa icon)
+// Daftar semua game (Pragmatic + PG Soft)
 const pragmaticGames = [
   'Gates of Olympus',
   'Starlight Princess',
@@ -37,18 +37,22 @@ const pgSoftGames = [
   'Gem Saviour'
 ];
 
-// Fungsi buat generate pola baru
+// Fungsi buat pola random
 function generateRandomPola() {
-  const polaList = [
-    'Pola 1: Auto Spin 20 ❌❌✅',
-    'Pola 2: Spin Normal 30 ❌✅✅',
-    'Pola 3: Auto Spin 20 ❌✅❌',
-    'Pola 1: Auto Spin 10 ✅❌✅',
-    'Pola 2: Spin Normal 50 ❌✅❌',
-    'Pola 3: Auto Spin 100 ✅✅❌'
+  const polaTemplates = [
+    `Pola 1: Auto Spin 20 ❌❌✅
+Pola 2: Spin Normal 30 ❌✅✅
+Pola 3: Auto Spin 20 ❌✅❌`,
+
+    `Pola 1: Auto Spin 10 ✅❌✅
+Pola 2: Spin Normal 50 ✅✅❌
+Pola 3: Auto Spin 30 ❌✅❌`,
+
+    `Pola 1: Spin Normal 20 ❌✅✅
+Pola 2: Auto Spin 50 ✅❌✅
+Pola 3: Spin Normal 40 ✅✅❌`
   ];
-  const randomPola = polaList[Math.floor(Math.random() * polaList.length)];
-  return randomPola;
+  return polaTemplates[Math.floor(Math.random() * polaTemplates.length)];
 }
 
 // Variabel RTP aktif
@@ -61,7 +65,7 @@ let rtpData = {
 function generateRandomRTP() {
   const randomizeGames = (games) => {
     const shuffled = games.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 5).map(game => ({
+    return shuffled.slice(0, 3).map(game => ({
       name: game,
       rtp: Math.floor(Math.random() * 11) + 90, // 90-100%
       pola: generateRandomPola()
@@ -130,12 +134,12 @@ bot.on('callback_query', async (callbackQuery) => {
 
       rtpMessage += `📌 *Pragmatic Play RTP Saat Ini:*\n`;
       rtpData.pragmatic.forEach((game) => {
-        rtpMessage += `• ${game.name} → *${game.rtp}%*\n  ${game.pola}\n\n`;
+        rtpMessage += `• ${game.name} → *${game.rtp}%*\n${game.pola}\n\n`;
       });
 
       rtpMessage += `\n📌 *PG Soft RTP Saat Ini:*\n`;
       rtpData.pgSoft.forEach((game) => {
-        rtpMessage += `• ${game.name} → *${game.rtp}%*\n  ${game.pola}\n\n`;
+        rtpMessage += `• ${game.name} → *${game.rtp}%*\n${game.pola}\n\n`;
       });
 
       rtpMessage += `⏰ Terakhir dilihat: *${currentTime}*\n🔄 Data update otomatis setiap 2 jam`;
