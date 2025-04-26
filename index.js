@@ -11,18 +11,37 @@ bot.onText(/^\/start$/, (msg) => {
   const chatId = msg.chat.id;
   const name = msg.from.first_name || 'Teman';
 
-  const welcomeMessage = `👋 Halo, ${name}!\nSelamat datang di bot kami. Gunakan perintah /menu untuk melihat opsi yang tersedia.`;
+  const welcomeMessage = `👋 Selamat Datang Di NADA777, ${name}!
+Gunakan perintah /menu untuk mendapatkan opsi yang tersedia untuk menyelesaikan kendala kamu.`;
   bot.sendMessage(chatId, welcomeMessage);
 });
 
-// Handler untuk anggota baru yang bergabung dalam grup
-bot.on('new_chat_members', (msg) => {
+// Handler untuk perintah /menu
+bot.onText(/^\/menu$/, (msg) => {
   const chatId = msg.chat.id;
-  const newMembers = msg.new_chat_members;
 
-  newMembers.forEach((user) => {
-    const name = user.first_name || 'Teman Baru';
-    const welcomeMessage = `👋 Selamat datang, ${name}!\nSemoga betah di grup ini 😊`;
-    bot.sendMessage(chatId, welcomeMessage);
-  });
+  const menuOptions = {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: '🔐 LOGIN', url: 'https://link-login-anda.com' },
+          { text: '🌐 LINK ALTERNATIF', url: 'https://link-alternatif-anda.com' }
+        ],
+        [
+          { text: '📞 HUBUNGI CS', url: 'https://t.me/CS_Nada777' }
+        ],
+        [
+          { text: '🎁 PROMO', url: 'https://link-promo-anda.com' }
+        ],
+        [
+          { text: '🎯 RTP ONLINE', url: 'https://link-rtp-online-anda.com' }
+        ],
+        [
+          { text: '👥 GRUP RESMI NADA777', url: 'https://t.me/GrupResmiNada777' }
+        ]
+      ]
+    }
+  };
+
+  bot.sendMessage(chatId, '👇 Silakan pilih menu yang kamu butuhkan:', menuOptions);
 });
