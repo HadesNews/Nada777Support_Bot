@@ -13,7 +13,7 @@ bot.onText(/^\/start$/, (msg) => {
 
   const welcomeMessage = `
 Selamat Datang Di *NADA777*, ${name}!
-🤖 Layanan Bot Nada777 Hadir Untuk Kamu Agar Lebih Praktis 🤖
+🤖Layanan Bot Nada777 Hadir Untuk Kamu Agar Lebih Praktis🤖
 
 ⬇️ Silahkan Pilih Menu Yang Kamu Butuhkan ⬇️`;
 
@@ -51,9 +51,9 @@ bot.on('message', (msg) => {
   // Cek kalau bukan perintah /start
   if (!text.startsWith('/start')) {
     const reminderMessage = `
-Maaf, perintah tidak dikenali. 🙏
+Mohon Maaf, perintah tidak dikenali. 🙏
 
-Silakan ketik */start* lalu pilih tombol *Hubungi CS* untuk bantuan lebih lanjut.`;
+Silakan chat kesini > (@nada777Official) untuk melakukan konfirmasi lebih lanjut untuk pertanyaan bosku.`;
 
     bot.sendMessage(chatId, reminderMessage, { parse_mode: 'Markdown' });
   }
