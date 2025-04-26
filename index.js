@@ -17,7 +17,7 @@ bot.onText(/^\/start$/, (msg) => {
   ⬇️ Silahkan Pilih Menu Yang Kamu Butuhkan ⬇️`;
 
   const options = {
-    reply_markup: {
+    reply_markup: 'Markdown',
       inline_keyboard: [
         [
           {text: '📥 DOWNLOAD APK NADA777', url: 'https://t.ly/APKNADA' },
@@ -41,7 +41,6 @@ bot.onText(/^\/start$/, (msg) => {
           {text: '👥 GRUP RESMI NADA777', url: 'https://t.me/GrupResmiNada777 },
         ]
       ]
-    }
   }
  
   bot.sendMessage(chatId, welcomeMessage);
