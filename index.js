@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // Token bot
-const token = 'ISI_TOKEN_BOT_KAMU_DISINI';
+const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
 
 // Inisialisasi Bot
 const bot = new TelegramBot(token, { polling: true });
