@@ -41,7 +41,7 @@ bot.onText(/^\/start$/, (msg) => {
           {text: '👥 GRUP RESMI NADA777', url: 'https://t.me/GrupResmiNada777' },
         ]
       ]
-    }  
+    }
   };
  
   bot.sendMessage(chatId, welcomeMessage);
