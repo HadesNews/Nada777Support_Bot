@@ -16,7 +16,7 @@ bot.onText(/^\/start$/, (msg) => {
   
   ⬇️ Silahkan Pilih Menu Yang Kamu Butuhkan ⬇️`;
 
-  const menuOptions = {
+  const options = {
     reply_markup: {
       inline_keyboard: [
         [
