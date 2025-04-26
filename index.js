@@ -53,7 +53,7 @@ bot.on('message', (msg) => {
     const reminderMessage = `
 Mohon Maaf, perintah tidak dikenali. 🙏
 
-Silakan chat kesini > (@nada777Official) untuk melakukan konfirmasi lebih lanjut untuk pertanyaan bosku.`;
+Silakan chat kesini (@nada777Official) untuk melakukan konfirmasi lebih lanjut untuk pertanyaan bosku.`;
 
     bot.sendMessage(chatId, reminderMessage, { parse_mode: 'Markdown' });
   }
