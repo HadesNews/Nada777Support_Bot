@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // Token bot
-const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
+const token = 'ISI_TOKEN_BOT_KAMU_DISINI';
 
 // Inisialisasi Bot
 const bot = new TelegramBot(token, { polling: true });
@@ -42,7 +42,6 @@ let rtpData = {
   pragmatic: [],
   pgSoft: []
 };
-let lastUpdateTime = '';
 
 // Fungsi buat RTP random
 function generateRandomRTP() {
@@ -61,9 +60,7 @@ function generateRandomRTP() {
 // Update RTP setiap 2 jam
 function updateRTP() {
   generateRandomRTP();
-  const now = new Date();
-  lastUpdateTime = now.toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-  console.log('🔄 Data RTP diupdate:', lastUpdateTime);
+  console.log('🔄 Data RTP diupdate:', new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }));
 }
 updateRTP();
 setInterval(updateRTP, 2 * 60 * 60 * 1000); // Update setiap 2 jam
@@ -110,27 +107,31 @@ bot.on('callback_query', async (callbackQuery) => {
 
   if (data === 'rtp_online') {
     await bot.sendChatAction(chatId, 'typing');
+
+    // Ambil jam SEKARANG pas user klik
+    const currentTime = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+
     setTimeout(() => {
       let rtpMessage = `🎰 *RTP ONLINE UPDATE!*\n\n`;
 
-      rtpMessage += `*Pragmatic Play RTP Saat Ini:*\n`;
+      rtpMessage += `📌 *Pragmatic Play RTP Saat Ini:*\n`;
       rtpData.pragmatic.forEach((game) => {
         rtpMessage += `• ${game.name} → *${game.rtp}%*\n`;
       });
 
-      rtpMessage += `\n*PG Soft RTP Saat Ini:*\n`;
+      rtpMessage += `\n📌 *PG Soft RTP Saat Ini:*\n`;
       rtpData.pgSoft.forEach((game) => {
         rtpMessage += `• ${game.name} → *${game.rtp}%*\n`;
       });
 
-      rtpMessage += `\n⏰ Terakhir update: *${lastUpdateTime}*\n🔄 Auto Update Setiap 2 Jam`;
+      rtpMessage += `\n⏰ Terakhir dilihat: *${currentTime}*\n🔄 Data update otomatis setiap 2 jam`;
 
       bot.sendMessage(chatId, rtpMessage, { parse_mode: 'Markdown' });
     }, 1000);
   }
 });
 
-// Handle chat bebas
+// Handle chat bebas selain /start
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
