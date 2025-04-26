@@ -12,7 +12,7 @@ bot.on('/start', (msg) => {
   const newMembers = msg.new_chat_members;
 
   newMembers.forEach((user) => {
-    const name = user.first_name || 'Teman Baru';
+    
     const welcomeMessage = `👋 Selamat datang, ${name}!\nSemoga betah di grup ini 😊`;
     bot.sendMessage(chatId, welcomeMessage);
   });
