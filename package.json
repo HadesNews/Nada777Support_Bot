@@ -1,19 +1,16 @@
 {
-    "name": "telegram-bot",
+    "name": "nada777support_bot",
     "version": "1.0.0",
-    "description": "Bot Telegram sederhana dengan javascrip",
+    "description": "Nada777 Support Telegram Bot",
     "main": "index.js",
     "scripts": {
       "start": "node index.js"
     },
-    "keywords": [
-      "telegram",
-      "bot",
-      "nodejs"
-    ],
-    "author": "Nada777Support_Bot",
+    "keywords": ["telegram", "bot", "nodejs"],
+    "author": "HadesNews",
     "license": "MIT",
     "dependencies": {
+      "dotenv": "^16.4.0",
       "node-telegram-bot-api": "^0.61.0"
     }
   }
