@@ -106,7 +106,7 @@ Selamat Datang Di *NADA777*, ${name}!
         ],
         [
           { text: '📞 HUBUNGI CS', url: 'https://t.me/nada777Official' },
-          { text: '🎁 PROMO', url: 'https://t.ly/promonada777' }
+          { text: '🎁 PROMO', url: 'https://gofile.io/d/vqp4qc' }
         ],
         [
           { text: '🎯 RTP ONLINE', callback_data: 'rtp_online' },
