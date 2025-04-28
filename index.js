@@ -6,6 +6,15 @@ const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
 // Inisialisasi Bot
 const bot = new TelegramBot(token, { polling: true });
 
+// SET COMMANDS
+bot.setMyCommands([
+  { command: 'start', description: 'Mulai Bot NADA777' },
+  { command: 'rtp', description: 'Cek RTP Online NADA777' },
+  { command: 'promo', description: 'Lihat Info Promo Terbaru' },
+  { command: 'daftar', description: 'Daftar Akun NADA777' },
+  { command: 'cs', description: 'Hubungi Customer Service' }
+]);
+
 // Daftar semua game (Pragmatic + PG Soft)
 const pragmaticGames = [
   'Gates of Olympus',
