@@ -6,6 +6,17 @@ const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
 // Inisialisasi Bot
 const bot = new TelegramBot(token, { polling: true });
 
+// Set Description Bot & Short Description
+bot.setMyDescription(
+  `Hallo, Selamat Datang Di NADA777!
+
+Saya Bot Nada777 Support siap memudahkan kamu untuk akses ke semua layanan Nada777 dengan praktis. Mulai dari daftar akun, bocoran slot gacor, link login VIP, dan promo terbaru.
+
+Dengan sekali klik tombol *MULAI*, kamu langsung bisa memilih layanan yang kamu butuhkan dengan cepat, mudah, dan praktis.`
+);
+
+bot.setMyShortDescription('Akses Mudah Semua Layanan Nada777 🎰🔥');
+
 // SET COMMANDS
 bot.setMyCommands([
   { command: 'start', description: 'Mulai Bot NADA777' },
