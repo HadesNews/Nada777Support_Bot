@@ -8,19 +8,19 @@ const bot = new TelegramBot(token, { polling: true });
 
 // Daftar semua game (Pragmatic + PG Soft)
 const pragmaticGames = [
-  'Gates of Olympus',
+  'Gates of Olympus 1000',
   'Starlight Princess',
   'Sweet Bonanza',
   'Zeus',
   'Wild West Gold',
-  'Sugar Rush',
-  'Fruit Party',
+  'Sweet Bonanza 1000',
+  'Mahjong Wins 3 - Black Scatter',
   'The Dog House',
-  'Great Rhino',
+  'Gates of Olympus',
   'Bonanza Gold',
   'Aztec Gems',
-  'Hot Fiesta',
-  'Joker’s Jewels',
+  'Starlight Princess 1000',
+  'Slot Mania Princess',
   'Madame Destiny Megaways'
 ];
 
@@ -142,7 +142,7 @@ bot.on('callback_query', async (callbackQuery) => {
         rtpMessage += `• ${game.name} → *${game.rtp}%*\n${game.pola}\n\n`;
       });
 
-      rtpMessage += `⏰ Terakhir dilihat: *${currentTime}*\n🔄 Data update otomatis setiap 2 jam`;
+      rtpMessage += `⏰ Terakhir dilihat: *${currentTime}* `;
 
       bot.sendMessage(chatId, rtpMessage, { parse_mode: 'Markdown' });
     }, 1000);
