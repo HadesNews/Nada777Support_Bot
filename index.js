@@ -6,44 +6,51 @@ const token = '7971857678:AAEEjSVxrG850rXeirVNYeTDqjNFWPd-LFU';
 // Inisialisasi Bot
 const bot = new TelegramBot(token, { polling: true });
 
-// Set Description Bot & Short Description
-bot.setMyDescription(
-  `Hallo, Selamat Datang Di NADA777!
-
-Saya Bot Nada777 Support siap memudahkan kamu untuk akses ke semua layanan Nada777 dengan praktis. Mulai dari daftar akun, bocoran slot gacor, link login VIP, dan promo terbaru.
-
-Dengan sekali klik tombol *MULAI*, kamu langsung bisa memilih layanan yang kamu butuhkan dengan cepat, mudah, dan praktis.`
-);
-
-bot.setMyShortDescription('Akses Mudah Semua Layanan Nada777 🎰🔥');
-
-// SET COMMANDS
-bot.setMyCommands([
-  { command: 'start', description: 'Mulai Bot NADA777' },
-  { command: 'rtp', description: 'Cek RTP Online NADA777' },
-  { command: 'promo', description: 'Lihat Info Promo Terbaru' },
-  { command: 'daftar', description: 'Daftar Akun NADA777' },
-  { command: 'cs', description: 'Hubungi Customer Service' }
-]);
-
 // Daftar semua game (Pragmatic + PG Soft)
 const pragmaticGames = [
-  'Gates of Olympus', 'Starlight Princess', 'Sweet Bonanza', 'Zeus', 'Wild West Gold',
-  'Sugar Rush', 'Fruit Party', 'The Dog House', 'Great Rhino', 'Bonanza Gold',
-  'Aztec Gems', 'Hot Fiesta', 'Joker’s Jewels', 'Madame Destiny Megaways'
+  'Gates of Olympus',
+  'Starlight Princess',
+  'Sweet Bonanza',
+  'Zeus',
+  'Wild West Gold',
+  'Sugar Rush',
+  'Fruit Party',
+  'The Dog House',
+  'Great Rhino',
+  'Bonanza Gold',
+  'Aztec Gems',
+  'Hot Fiesta',
+  'Joker’s Jewels',
+  'Madame Destiny Megaways'
 ];
 
 const pgSoftGames = [
-  'Mahjong Ways', 'Mahjong Ways 2', 'Lucky Neko', 'Dreams of Macau', 'Caishen Wins',
-  'Dragon Tiger Luck', 'Treasures of Aztec', 'Fish Prawn Crab', 'Queen of Bounty', 'Gem Saviour'
+  'Mahjong Ways',
+  'Mahjong Ways 2',
+  'Lucky Neko',
+  'Dreams of Macau',
+  'Caishen Wins',
+  'Dragon Tiger Luck',
+  'Treasures of Aztec',
+  'Fish Prawn Crab',
+  'Queen of Bounty',
+  'Gem Saviour'
 ];
 
 // Fungsi buat pola random
 function generateRandomPola() {
   const polaTemplates = [
-    `Pola 1: Auto Spin 20 ❌❌✅\nPola 2: Spin Normal 30 ❌✅✅\nPola 3: Auto Spin 20 ❌✅❌`,
-    `Pola 1: Auto Spin 10 ✅❌✅\nPola 2: Spin Normal 50 ✅✅❌\nPola 3: Auto Spin 30 ❌✅❌`,
-    `Pola 1: Spin Normal 20 ❌✅✅\nPola 2: Auto Spin 50 ✅❌✅\nPola 3: Spin Normal 40 ✅✅❌`
+    `Pola 1: Auto Spin 20 ❌❌✅
+Pola 2: Spin Normal 30 ❌✅✅
+Pola 3: Auto Spin 20 ❌✅❌`,
+
+    `Pola 1: Auto Spin 10 ✅❌✅
+Pola 2: Spin Normal 50 ✅✅❌
+Pola 3: Auto Spin 30 ❌✅❌`,
+
+    `Pola 1: Spin Normal 20 ❌✅✅
+Pola 2: Auto Spin 50 ✅❌✅
+Pola 3: Spin Normal 40 ✅✅❌`
   ];
   return polaTemplates[Math.floor(Math.random() * polaTemplates.length)];
 }
@@ -60,7 +67,7 @@ function generateRandomRTP() {
     const shuffled = games.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 3).map(game => ({
       name: game,
-      rtp: Math.floor(Math.random() * 11) + 90,
+      rtp: Math.floor(Math.random() * 11) + 90, // 90-100%
       pola: generateRandomPola()
     }));
   };
@@ -75,15 +82,15 @@ function updateRTP() {
   console.log('🔄 Data RTP diupdate:', new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }));
 }
 updateRTP();
-setInterval(updateRTP, 2 * 60 * 60 * 1000);
+setInterval(updateRTP, 2 * 60 * 60 * 1000); // Update setiap 2 jam
 
 // Handler /start
 bot.onText(/^\/start$/, (msg) => {
   const chatId = msg.chat.id;
   const name = msg.from.first_name || 'Teman';
 
-  const welcomeMessage = 
-`Selamat Datang Di *NADA777*, ${name}!
+  const welcomeMessage = `
+Selamat Datang Di *NADA777*, ${name}!
 🤖 Layanan Bot Nada777 Hadir Untuk Kamu Agar Lebih Praktis 🤖
 
 ⬇️ Silahkan Pilih Menu Yang Kamu Butuhkan ⬇️`;
@@ -98,8 +105,8 @@ bot.onText(/^\/start$/, (msg) => {
           { text: '🌐 LINK ALTERNATIF', url: 'https://tembus.xyz/nada777' }
         ],
         [
-          { text: '📞 HUBUNGI CS', callback_data: 'contact_cs' },
-          { text: '🎁 PROMO', callback_data: 'promo_info' }
+          { text: '📞 HUBUNGI CS', url: 'https://t.me/nada777Official' },
+          { text: '🎁 PROMO', url: 'https://t.ly/promonada777' }
         ],
         [
           { text: '🎯 RTP ONLINE', callback_data: 'rtp_online' },
@@ -112,23 +119,25 @@ bot.onText(/^\/start$/, (msg) => {
   bot.sendMessage(chatId, welcomeMessage, options);
 });
 
-// Handle klik tombol
+// Handle klik tombol RTP Online
 bot.on('callback_query', async (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
   const data = callbackQuery.data;
 
   if (data === 'rtp_online') {
     await bot.sendChatAction(chatId, 'typing');
+
     const currentTime = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
 
     setTimeout(() => {
       let rtpMessage = `🎰 *RTP ONLINE UPDATE!*\n\n`;
+
       rtpMessage += `📌 *Pragmatic Play RTP Saat Ini:*\n`;
       rtpData.pragmatic.forEach((game) => {
         rtpMessage += `• ${game.name} → *${game.rtp}%*\n${game.pola}\n\n`;
       });
 
-      rtpMessage += `📌 *PG Soft RTP Saat Ini:*\n`;
+      rtpMessage += `\n📌 *PG Soft RTP Saat Ini:*\n`;
       rtpData.pgSoft.forEach((game) => {
         rtpMessage += `• ${game.name} → *${game.rtp}%*\n${game.pola}\n\n`;
       });
@@ -137,15 +146,7 @@ bot.on('callback_query', async (callbackQuery) => {
 
       bot.sendMessage(chatId, rtpMessage, { parse_mode: 'Markdown' });
     }, 1000);
-
-  } else if (data === 'promo_info') {
-    bot.sendMessage(chatId, '🎁 Promo Terbaru NADA777:\n\nDapatkan bonus new member 100% dan cashback harian!\n👉 Kunjungi: https://t.ly/promonada777', { parse_mode: 'Markdown' });
-
-  } else if (data === 'contact_cs') {
-    bot.sendMessage(chatId, '📞 Hubungi Customer Service NADA777 24 jam:\n👉 https://t.me/nada777Official', { parse_mode: 'Markdown' });
   }
-
-  bot.answerCallbackQuery(callbackQuery.id);
 });
 
 // Handle chat bebas selain /start
@@ -154,8 +155,10 @@ bot.on('message', (msg) => {
   const text = msg.text;
 
   if (!text.startsWith('/start')) {
-    const reminderMessage = 
-`Mohon Maaf, perintah tidak dikenali. 🙏\n\nSilakan chat ke > (@nada777Official) untuk pertanyaan lebih lanjut ya, Bosku!`;
+    const reminderMessage = `
+Mohon Maaf, perintah tidak dikenali. 🙏
+
+Silakan chat ke (@nada777Official) untuk pertanyaan lebih lanjut ya, Bosku!`;
 
     bot.sendMessage(chatId, reminderMessage, { parse_mode: 'Markdown' });
   }
