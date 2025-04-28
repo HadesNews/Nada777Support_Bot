@@ -41,17 +41,9 @@ const pgSoftGames = [
 // Fungsi buat pola random
 function generateRandomPola() {
   const polaTemplates = [
-    `Pola 1: Auto Spin 20 ❌❌✅
-Pola 2: Spin Normal 30 ❌✅✅
-Pola 3: Auto Spin 20 ❌✅❌`,
-
-    `Pola 1: Auto Spin 10 ✅❌✅
-Pola 2: Spin Normal 50 ✅✅❌
-Pola 3: Auto Spin 30 ❌✅❌`,
-
-    `Pola 1: Spin Normal 20 ❌✅✅
-Pola 2: Auto Spin 50 ✅❌✅
-Pola 3: Spin Normal 40 ✅✅❌`
+    `Pola 1: Auto Spin 20 ❌❌✅\nPola 2: Spin Normal 30 ❌✅✅\nPola 3: Auto Spin 20 ❌✅❌`,
+    `Pola 1: Auto Spin 10 ✅❌✅\nPola 2: Spin Normal 50 ✅✅❌\nPola 3: Auto Spin 30 ❌✅❌`,
+    `Pola 1: Spin Normal 20 ❌✅✅\nPola 2: Auto Spin 50 ✅❌✅\nPola 3: Spin Normal 40 ✅✅❌`
   ];
   return polaTemplates[Math.floor(Math.random() * polaTemplates.length)];
 }
@@ -68,7 +60,7 @@ function generateRandomRTP() {
     const shuffled = games.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 3).map(game => ({
       name: game,
-      rtp: Math.floor(Math.random() * 11) + 90, // 90-100%
+      rtp: Math.floor(Math.random() * 11) + 90,
       pola: generateRandomPola()
     }));
   };
@@ -83,7 +75,7 @@ function updateRTP() {
   console.log('🔄 Data RTP diupdate:', new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }));
 }
 updateRTP();
-setInterval(updateRTP, 2 * 60 * 60 * 1000); // Update setiap 2 jam
+setInterval(updateRTP, 2 * 60 * 60 * 1000);
 
 // Handler /start
 bot.onText(/^\/start$/, (msg) => {
@@ -106,8 +98,8 @@ bot.onText(/^\/start$/, (msg) => {
           { text: '🌐 LINK ALTERNATIF', url: 'https://tembus.xyz/nada777' }
         ],
         [
-          { text: '📞 HUBUNGI CS', callback_data: 'contact_cs' }, // <== diubah jadi callback
-          { text: '🎁 PROMO', callback_data: 'promo_info' }       // <== diubah jadi callback
+          { text: '📞 HUBUNGI CS', callback_data: 'contact_cs' },
+          { text: '🎁 PROMO', callback_data: 'promo_info' }
         ],
         [
           { text: '🎯 RTP ONLINE', callback_data: 'rtp_online' },
@@ -127,12 +119,10 @@ bot.on('callback_query', async (callbackQuery) => {
 
   if (data === 'rtp_online') {
     await bot.sendChatAction(chatId, 'typing');
-
     const currentTime = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
 
     setTimeout(() => {
       let rtpMessage = `🎰 *RTP ONLINE UPDATE!*\n\n`;
-
       rtpMessage += `📌 *Pragmatic Play RTP Saat Ini:*\n`;
       rtpData.pragmatic.forEach((game) => {
         rtpMessage += `• ${game.name} → *${game.rtp}%*\n${game.pola}\n\n`;
@@ -153,10 +143,9 @@ bot.on('callback_query', async (callbackQuery) => {
 
   } else if (data === 'contact_cs') {
     bot.sendMessage(chatId, '📞 Hubungi Customer Service NADA777 24 jam:\n👉 https://t.me/nada777Official', { parse_mode: 'Markdown' });
-
   }
 
-  bot.answerCallbackQuery(callbackQuery.id); // Nutup loading di tombol
+  bot.answerCallbackQuery(callbackQuery.id);
 });
 
 // Handle chat bebas selain /start
@@ -166,9 +155,7 @@ bot.on('message', (msg) => {
 
   if (!text.startsWith('/start')) {
     const reminderMessage = 
-`Mohon Maaf, perintah tidak dikenali. 🙏
-
-Silakan chat ke > (@nada777Official) untuk pertanyaan lebih lanjut ya, Bosku!`;
+`Mohon Maaf, perintah tidak dikenali. 🙏\n\nSilakan chat ke > (@nada777Official) untuk pertanyaan lebih lanjut ya, Bosku!`;
 
     bot.sendMessage(chatId, reminderMessage, { parse_mode: 'Markdown' });
   }
